@@ -1,0 +1,38 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main  # "main" brancha her push'ta çalışır
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build-and-deploy:
+    name: Build and Deploy to Kubernetes
+    runs-on: ubuntu-latest
+
+    steps:
+    # 1. Repo'yu klonla
+    - name: Checkout Code
+      uses: actions/checkout@v3
+
+    # 2. Google Cloud CLI kur
+    - name: Set up Google Cloud SDK
+      uses: google-github-actions/setup-gcloud@v1
+      with:
+        service_account_key: ${{ secrets.GCP_SERVICE_ACCOUNT_KEY }}
+        project_id: f1-prediction-cluster
+
+    # 3. Docker build ve push
+    - name: Build and Push Docker Image
+      run: |
+        docker build -t europe-west2-docker.pkg.dev/f1-prediction-cluster/f1-prediction-repo/f1-prediction-app:latest .
+        docker push europe-west2-docker.pkg.dev/f1-prediction-cluster/f1-prediction-repo/f1-prediction-app:latest
+
+    # 4. Kubernetes'e deploy et
+    - name: Deploy to Kubernetes
+      run: |
+        kubectl apply -f kubernetes/deployment.yaml
+        kubectl apply -f kubernetes/service.yaml

@@ -1,0 +1,22 @@
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: f1-prediction-app
+  labels:
+    app: f1-prediction-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: f1-prediction-app
+  template:
+    metadata:
+      labels:
+        app: f1-prediction-app
+    spec:
+      containers:
+      - name: f1-prediction-app
+        image: europe-west2-docker.pkg.dev/f1-prediction-cluster/f1-prediction-repo/f1-prediction-app:latest
+        ports:
+        - containerPort: 8501
