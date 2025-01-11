@@ -28,7 +28,7 @@ jobs:
     # 3. Docker build ve push
     - name: Build and Push Docker Image
       run: |
-        docker build -t europe-west2-docker.pkg.dev/f1-prediction-cluster/f1-prediction-repo/f1-prediction-app:latest .
+        docker build -f docker/Dockerfile -t europe-west2-docker.pkg.dev/f1-prediction-cluster/f1-prediction-repo/f1-prediction-app:latest .
         docker push europe-west2-docker.pkg.dev/f1-prediction-cluster/f1-prediction-repo/f1-prediction-app:latest
 
     # 4. Kubernetes'e deploy et
