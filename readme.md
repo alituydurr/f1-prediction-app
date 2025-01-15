@@ -70,7 +70,7 @@ Veri görselleştirme ve analiz için kullanılan kütüphaneler.
    - Sanal ortam oluşturun ve aktif edin:
      ```bash
      python -m venv env
-     source env/bin/activate  # Windows için: env\Scripts\activate
+     source env/Scripts/activate 
      ```
    - Bağımlıları yükleyin:
      ```bash
@@ -79,7 +79,7 @@ Veri görselleştirme ve analiz için kullanılan kütüphaneler.
 
 3. **Uygulamayı Çalıştırma**
    ```bash
-   streamlit run app/main.py
+   streamlit run app/welocme.py
    ```
 
 4. **Docker Kullanımı**
